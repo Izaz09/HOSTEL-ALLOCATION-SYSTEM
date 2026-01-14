@@ -1,7 +1,7 @@
 // PROGRAM: HOSTEL MANAGEMENT SYSTEM (UTeM DORM)
-// GROUP MEMBERS: Chew Yi Xiong, Izzaz, Zariff, Qusyairi
+// GROUP MEMBERS: Chew Yi Xiong, Izaz, Zariff, Qusyairi
 // SUBJECT: PROGRAMMING TECHNIQUES (C++)
-// DATE: January 4, 2026 (Updated with Auto-Assign)
+// DATE: January 4, 2026 
 
 #include <iostream>
 #include <string>
@@ -9,35 +9,27 @@
 
 using namespace std;
 
-// ==========================================
-// 1. DATA STRUCTURES & GLOBAL VARIABLES
-// ==========================================
 
 struct Student {
-    string name = ""; // Empty string "" indicates the bed is available
+    string name = ""; 
     string ic;
     string matricCard;
     string phoneNum;
 };
 
-// CONSTANTS
-const int TOTAL_HOUSES = 108; // 9 Floors * 12 Houses
-const int BEDS_PER_HOUSE = 10; // 5 Rooms * 2 Beds
 
-// THE 2D ARRAY
+const int TOTAL_HOUSES = 108; 
+const int BEDS_PER_HOUSE = 10;
+
 Student hostel[TOTAL_HOUSES][BEDS_PER_HOUSE];
 
-// ==========================================
-// 2. FUNCTION PROTOTYPES
-// ==========================================
+
 void showMainMenu();
 void registerStudent();
 void checkAvailability();
 void findStudent();
 
-// ==========================================
-// 3. MAIN FUNCTION
-// ==========================================
+
 int main() {
     int choice = 0;
     while (choice != 5) {
@@ -68,9 +60,7 @@ int main() {
     return 0;
 }
 
-// ==========================================
-// 4. FUNCTION DEFINITIONS
-// ==========================================
+
 
 void showMainMenu() {
     cout << "\n======================================\n";
@@ -84,11 +74,10 @@ void showMainMenu() {
     cout << "======================================\n";
 }
 
-// === [UPDATED] REGISTER FUNCTION WITH AUTO-ASSIGN ===
 void registerStudent() {
     int method;
-    int rowIndex = -1;   // Final selected House Index
-    int targetCol = -1;  // Final selected Bed Index
+    int rowIndex = -1;   
+    int targetCol = -1; 
 
     cout << "\n--- REGISTER NEW STUDENT ---\n";
     cout << "1. Manual Selection (Choose Room)\n";
@@ -96,26 +85,24 @@ void registerStudent() {
     cout << "Select Method (1 or 2): ";
     cin >> method;
 
-    // ============================
-    // PATH 1: MANUAL SELECTION
-    // ============================
+
     if (method == 1) {
         int f, h, r;
         cout << "Enter Floor (1-9): "; cin >> f;
         cout << "Enter House (1-12): "; cin >> h;
         cout << "Enter Room (1-5): "; cin >> r;
 
-        // Validation
+        /
         if (f < 1 || f > 9 || h < 1 || h > 12 || r < 1 || r > 5) {
             cout << ">> Error: Invalid inputs.\n";
             return;
         }
 
-        // Calculate Array Indices
+      
         int calcRow = ((f - 1) * 12) + (h - 1);
         int startCol = (r - 1) * 2;
 
-        // Check specifically inside that room (Bed 1 or Bed 2)
+      
         if (hostel[calcRow][startCol].name == "") {
             rowIndex = calcRow;
             targetCol = startCol;
@@ -129,24 +116,22 @@ void registerStudent() {
             return;
         }
     }
-    // ============================
-    // PATH 2: AUTOMATIC ASSIGNMENT
-    // ============================
+  
     else if (method == 2) {
         bool found = false;
         cout << ">> Searching for the nearest empty bed...\n";
 
-        // Loop through everything until we find an empty spot
+    
         for (int i = 0; i < TOTAL_HOUSES; i++) {
             for (int j = 0; j < BEDS_PER_HOUSE; j++) {
                 if (hostel[i][j].name == "") {
                     rowIndex = i;
                     targetCol = j;
                     found = true;
-                    break; // Stop looking inside this house
+                    break; 
                 }
             }
-            if (found) break; // Stop looking completely
+            if (found) break; 
         }
 
         if (!found) {
@@ -159,12 +144,7 @@ void registerStudent() {
         return;
     }
 
-    // ============================
-    // FINAL STEP: ENTER DATA
-    // ============================
-    // At this point, we MUST have a valid rowIndex and targetCol
-
-    // Calculate location for display (Reverse Math)
+   
     int floor = (rowIndex / 12) + 1;
     int house = (rowIndex % 12) + 1;
     int room = (targetCol / 2) + 1;
@@ -261,4 +241,5 @@ void findStudent() {
     }
 
     if (!found) cout << ">> No student found.\n";
+
 }
